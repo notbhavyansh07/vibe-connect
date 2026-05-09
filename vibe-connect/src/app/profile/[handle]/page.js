@@ -27,13 +27,10 @@ export default function Profile() {
 
     const fetchProfile = async () => {
         try {
-            const res = await fetch(`http://localhost:5000/api/users/${handle}`);
-            const data = await res.json();
+            const res = await fetch(`/api/users/${handle}`);
             if (res.ok) {
+                const data = await res.json();
                 setProfile(data);
-                if (session?.user?.id) {
-                    checkFollowStatus(data._id);
-                }
             }
         } catch (err) {
             console.error("Failed to fetch profile:", err);
@@ -42,65 +39,23 @@ export default function Profile() {
         }
     };
 
-    const checkFollowStatus = async (targetUserId) => {
-        try {
-            const res = await fetch(`http://localhost:5000/api/follows/status?followerId=${session.user.id}&followingId=${targetUserId}`);
-            const data = await res.json();
-            if (res.ok) setIsFollowing(data.following);
-        } catch (err) {
-            console.error("Failed to check follow status:", err);
-        }
-    };
+    const checkFollowStatus = () => {}; // Requires backend
 
-    const handleFollow = async () => {
-        if (!session?.user?.id || !profile?._id) return;
-        try {
-            const res = await fetch("http://localhost:5000/api/follows/toggle", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ followerId: session.user.id, followingId: profile._id }),
-            });
-            const data = await res.json();
-            if (res.ok) {
-                setIsFollowing(data.following);
-                fetchProfile(); // Refresh stats
-            }
-        } catch (err) {
-            console.error("Follow failed:", err);
-        }
+    const handleFollow = () => {
+        alert('Follow feature requires backend deployment.');
     };
 
     const toggleLike = async (postId) => {
-        if (!session?.user?.id) return;
         try {
-            await fetch("http://localhost:5000/api/likes/toggle", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userId: session.user.id, postId }),
-            });
-            fetchProfile(); // Refresh profile posts
+            await fetch(`/api/posts/${postId}/like`, { method: 'POST' });
+            fetchProfile();
         } catch (err) {
-            console.error("Like toggle failed:", err);
+            console.error('Like toggle failed:', err);
         }
     };
 
-    const handleGenerateVibeAvatar = async () => {
-        if (!session?.user?.email) return;
-        setIsGenerating(true);
-        try {
-            const res = await fetch(`http://localhost:5000/api/ai/vibe-avatar?email=${session.user.email}`);
-            const data = await res.json();
-            if (res.ok) {
-                setVibePrompt(data.prompt);
-                // Agent will handle generating the image and saving it!
-                console.log("GENERATING_IMAGE_PROMPT:" + data.prompt);
-                alert("✨ AI is analyzing your vibes to generate a custom masterpiece... (Agent will generate the image now!)");
-            }
-        } catch (err) {
-            console.error("Vibe avatar generation failed:", err);
-        } finally {
-            // Keep it generating until agent actually saves it!
-        }
+    const handleGenerateVibeAvatar = () => {
+        alert('✨ AI Vibe Avatar feature requires backend deployment.');
     };
 
     const handleLogout = async () => {
