@@ -11,11 +11,15 @@ const nextConfig = {
         hostname: 'lh3.googleusercontent.com',
       },
       {
-        protocol: 'http',
-        hostname: 'localhost',
-      }
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
     ],
+    // Allow any external image in development
+    unoptimized: process.env.NODE_ENV === 'development',
   },
+  // Needed for Prisma to work correctly on Vercel
+  serverExternalPackages: ['@prisma/client', 'prisma'],
 };
 
 export default nextConfig;

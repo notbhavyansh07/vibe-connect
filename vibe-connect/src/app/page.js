@@ -22,11 +22,27 @@ const NotificationsModal = dynamic(() => import('../components/modals/Notificati
 const SettingsModal = dynamic(() => import('../components/modals/SettingsModal'), { ssr: false });
 const SearchModal = dynamic(() => import('../components/modals/SearchModal'), { ssr: false });
 
-const API_BASE = "http://localhost:5000/api";
-const socket = io("http://localhost:5000", { autoConnect: false });
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || "";
 
-const fetcher = (url, token) => fetch(url, { headers: token ? { Authorization: `Bearer ${token}` } : {} }).then(r => r.json()).then(data => data.posts || data);
-const trendingFetcher = url => fetch(url).then(r => r.json());
+// Graceful fetcher — returns empty array if backend is offline
+const fetcher = async (url, token) => {
+    if (!url || !API_BASE) return [];
+    try {
+        const res = await fetch(url, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
+        if (!res.ok) return [];
+        const data = await res.json();
+        return data.posts || data || [];
+    } catch { return []; }
+};
+const trendingFetcher = async (url) => {
+    if (!url || !API_BASE) return [];
+    try {
+        const res = await fetch(url);
+        if (!res.ok) return [];
+        return await res.json();
+    } catch { return []; }
+};
 
 export default function Feed() {
     const { data: session } = useSession();
@@ -120,21 +136,20 @@ export default function Feed() {
     }, [selectedStyle]);
 
     useEffect(() => {
-        if (showVibeParty) {
-            socket.connect();
-            if (mongoUser?._id) socket.emit('register-user', mongoUser._id);
-            socket.emit('join-chat', 'global-party');
-
-            socket.on('new-message', (msg) => {
+        if (showVibeParty && SOCKET_URL) {
+            const { io: socketIo } = require('socket.io-client');
+            const s = socketIo(SOCKET_URL, { autoConnect: true });
+            if (mongoUser?._id) s.emit('register-user', mongoUser._id);
+            s.emit('join-chat', 'global-party');
+            s.on('new-message', (msg) => {
                 setPartyMessages(prev => [...prev, msg]);
             });
-
             return () => {
-                socket.off('new-message');
-                socket.disconnect();
+                s.off('new-message');
+                s.disconnect();
             };
         }
-    }, [showVibeParty]);
+    }, [showVibeParty, mongoUser]);
 
     const syncUser = async () => {
         try {
