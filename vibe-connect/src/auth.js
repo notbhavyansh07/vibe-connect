@@ -14,13 +14,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) return null;
 
+                // Normalise email — trims whitespace & lowercases so Android
+                // auto-capitalise doesn't cause false "invalid password" errors
+                const email = credentials.email.trim().toLowerCase();
+
                 const user = await prisma.user.findUnique({
-                    where: { email: credentials.email },
+                    where: { email },
                 });
 
                 if (!user || !user.password) return null;
 
-                const isValid = await bcrypt.compare(credentials.password, user.password);
+                const isValid = await bcrypt.compare(
+                    credentials.password,
+                    user.password
+                );
 
                 if (!isValid) return null;
 
