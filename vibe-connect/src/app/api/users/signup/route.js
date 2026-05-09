@@ -66,7 +66,7 @@ export async function POST(req) {
     } catch (err) {
         console.error("[SIGNUP ERROR]", err);
         return NextResponse.json(
-            { error: "Something went wrong. Please try again." },
+            { error: `Database Connection Error. Please verify your Vercel DATABASE_URL is a valid PostgreSQL string. (Detail: ${err.message})` },
             { status: 500 }
         );
     }
