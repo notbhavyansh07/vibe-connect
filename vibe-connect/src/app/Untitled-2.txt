@@ -1,0 +1,18 @@
+# VibeConnect - Connect by Vibe, Not by Looks
+
+
+### Demo User
+@vibemaster
+[View Profile](http://localhost:3001/profile)
+[Home Feed](http://localhost:3001/)
+[Profile](http://localhost:3001/profile)
+[Log Out](http://localhost:3001/login)
+Just discovered this new synthwave track and it's absolute fire! 🎹 Who else is into retro-futuristic vibes?
+Working on a new design system for my portfolio. The glassmorphism trend is really growing on me! ✨
+Hiking up Mount Rainier this weekend! Anyone want to join? 🏔️ looking for a group of 3-4.
+
+## Vibe Matches
+
+### Now Playing
+
+## Trending Vibes

@@ -1,0 +1,16 @@
+{
+  "name": "VibeConnect",
+  "short_name": "VibeConnect",
+  "description": "Connect by Vibe, Not by Looks",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0F",
+  "theme_color": "#8B5CF6",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

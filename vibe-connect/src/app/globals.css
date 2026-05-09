@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-glow: var(--primary-glow);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-glow: var(--secondary-glow);
+
+  --color-accent: var(--accent);
+  --color-accent-glow: var(--accent-glow);
+
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+
+  --color-border: var(--border);
+
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+
+  --font-sans: var(--font-outfit), system-ui, sans-serif;
+}
+
+:root {
+  --background: #0B0B0F;
+  --foreground: #F8FAFC;
+
+  --primary: #8B5CF6;
+  --primary-glow: rgba(139, 92, 246, 0.5);
+
+  --secondary: #EC4899;
+  --secondary-glow: rgba(236, 72, 153, 0.5);
+
+  --accent: #06B6D4;
+  --accent-glow: rgba(6, 182, 212, 0.5);
+
+  --surface: #18181B;
+  --surface-hover: #27272A;
+
+  --border: #27272A;
+
+  --glass-bg: rgba(24, 24, 27, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Base Styles */
+@layer base {
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    font-family: var(--font-outfit), system-ui, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  p {
+    color: #94A3B8;
+    font-size: 1rem;
+  }
+}
+
+/* Component Styles */
+@layer components {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-semibold text-sm cursor-pointer transition-all duration-200 border-none outline-none active:scale-95;
+    will-change: transform;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    box-shadow: 0 4px 12px var(--primary-glow);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px var(--primary-glow);
+  }
+
+  .btn-outline {
+    @apply bg-transparent border border-white/10 text-white;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--primary);
+    background: rgba(139, 92, 246, 0.05);
+  }
+
+  .glass {
+    background: rgba(24, 24, 27, 0.75);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--glass-border);
+  }
+
+  /* Optimize rendering for long lists */
+  .post-list-item {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 150px;
+  }
+}
+
+/* Utilities */
+.text-gradient {
+  background: linear-gradient(to right, var(--accent), var(--primary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

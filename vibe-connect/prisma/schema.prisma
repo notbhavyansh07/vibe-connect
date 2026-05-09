@@ -1,0 +1,84 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                    String         @id @default(cuid())
+  name                  String?
+  email                 String?        @unique
+  password              String?
+  handle                String?        @unique
+  image                 String?
+  bio                   String?
+  color                 String?        @default("bg-primary")
+  vibes                 String?        @default("[]")
+  createdAt             DateTime       @default(now())
+  posts                 Post[]
+  comments              Comment[]
+  likes                 Like[]
+  notificationsSent     Notification[] @relation("Sender")
+  notificationsReceived Notification[] @relation("Receiver")
+  followers             Follows[]      @relation("Following")
+  following             Follows[]      @relation("Follower")
+}
+
+model Follows {
+  follower    User   @relation("Follower", fields: [followerId], references: [id])
+  followerId  String
+  following   User   @relation("Following", fields: [followingId], references: [id])
+  followingId String
+
+  @@id([followerId, followingId])
+}
+
+model Post {
+  id            String         @id @default(cuid())
+  content       String
+  author        User           @relation(fields: [authorId], references: [id])
+  authorId      String
+  trackTitle    String?
+  trackArtist   String?
+  tag           String?
+  createdAt     DateTime       @default(now())
+  comments      Comment[]
+  likes         Like[]
+  notifications Notification[]
+}
+
+model Like {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String
+
+  @@unique([userId, postId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id         String   @id @default(cuid())
+  type       String   // LIKE, COMMENT, FOLLOW
+  sender     User     @relation("Sender", fields: [senderId], references: [id])
+  senderId   String
+  receiver   User     @relation("Receiver", fields: [receiverId], references: [id])
+  receiverId String
+  post       Post?    @relation(fields: [postId], references: [id])
+  postId     String?
+  read       Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}

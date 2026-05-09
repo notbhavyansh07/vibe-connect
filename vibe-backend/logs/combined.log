@@ -1,0 +1,62 @@
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-04T11:46:20.204Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-04T11:52:37.492Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-04T11:54:01.497Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-04T12:01:17.032Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-04T12:01:59.707Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-04T12:02:47.344Z"}
+{"level":"info","message":"Socket connected: 21W9EIcRxoccfyBaAAAB","timestamp":"2026-04-04T12:03:30.980Z"}
+{"level":"info","message":"Socket disconnected: 21W9EIcRxoccfyBaAAAB","timestamp":"2026-04-04T12:04:10.211Z"}
+{"level":"info","message":"Socket connected: Sr695drp3RznbNVaAAAD","timestamp":"2026-04-04T12:04:40.586Z"}
+{"level":"info","message":"Socket disconnected: Sr695drp3RznbNVaAAAD","timestamp":"2026-04-04T12:08:57.771Z"}
+{"level":"info","message":"Socket connected: AOiZLWRIzrBtBn6jAAAF","timestamp":"2026-04-04T14:12:11.275Z"}
+{"level":"info","message":"Socket connected: PEiJSmeatgKq3amHAAAH","timestamp":"2026-04-04T14:14:29.701Z"}
+{"level":"info","message":"Socket connected: To0lSLxMUM2PvkTNAAAJ","timestamp":"2026-04-04T14:38:51.308Z"}
+{"level":"info","message":"Socket disconnected: To0lSLxMUM2PvkTNAAAJ","timestamp":"2026-04-04T14:39:25.123Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:34:14.082Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:36:17.239Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:37:57.778Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:38:09.435Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:38:25.601Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:38:56.568Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:39:19.267Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:39:38.382Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:39:48.845Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:39:58.201Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:40:57.392Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:41:02.649Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:41:17.509Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:41:28.809Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:41:38.443Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:41:55.396Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:42:03.951Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T06:44:18.005Z"}
+{"level":"info","message":"Socket connected: ew5pXK9mnTrS0IZ5AAAB","timestamp":"2026-04-05T06:45:24.217Z"}
+{"level":"info","message":"Socket disconnected: ew5pXK9mnTrS0IZ5AAAB","timestamp":"2026-04-05T06:54:57.898Z"}
+{"level":"info","message":"Socket connected: 0zGm1M5xE1oYbbEFAAAD","timestamp":"2026-04-05T07:18:32.547Z"}
+{"level":"info","message":"Socket connected: iY3wCRdDmB_ujgCsAAAF","timestamp":"2026-04-05T07:18:34.521Z"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"demo-user-x96z9\" (type string) at path \"_id\" for model \"User\"\n    at SchemaObjectId.cast (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\schema\\objectId.js:253:11)\n    at SchemaType.applySetters (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\schemaType.js:1287:12)\n    at SchemaType.castForQuery (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\schemaType.js:1713:17)\n    at cast (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\cast.js:386:32)\n    at Query.cast (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\query.js:5127:12)\n    at Query._castConditions (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\query.js:2376:10)\n    at model.Query._findOne (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\query.js:2716:8)\n    at model.Query.exec (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\query.js:4726:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async exports.getProfile (E:\\vibe connect\\vibe-backend\\controllers\\user.controller.js:14:21)","timestamp":"2026-04-05T07:20:42.394Z"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"demo-user-x96z9\" (type string) at path \"_id\" for model \"User\"\n    at SchemaObjectId.cast (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\schema\\objectId.js:253:11)\n    at SchemaType.applySetters (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\schemaType.js:1287:12)\n    at SchemaType.castForQuery (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\schemaType.js:1713:17)\n    at cast (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\cast.js:386:32)\n    at Query.cast (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\query.js:5127:12)\n    at Query._castConditions (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\query.js:2376:10)\n    at model.Query._findOne (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\query.js:2716:8)\n    at model.Query.exec (E:\\vibe connect\\vibe-backend\\node_modules\\mongoose\\lib\\query.js:4726:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async exports.getProfile (E:\\vibe connect\\vibe-backend\\controllers\\user.controller.js:14:21)","timestamp":"2026-04-05T07:20:42.401Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-05T07:22:12.666Z"}
+{"level":"info","message":"Socket connected: BTbKlgm2zK9XMKWHAAAC","timestamp":"2026-04-05T07:22:12.777Z"}
+{"level":"info","message":"Socket connected: pvvAxAnX6_llbjN-AAAD","timestamp":"2026-04-05T07:22:12.779Z"}
+{"level":"info","message":"Socket connected: IuWWVkC_4806KbeqAAAF","timestamp":"2026-04-05T07:28:15.440Z"}
+{"level":"info","message":"Socket disconnected: IuWWVkC_4806KbeqAAAF","timestamp":"2026-04-05T07:30:06.759Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-04-08T14:09:40.994Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-05-07T07:54:16.161Z"}
+{"level":"info","message":"Socket connected: zprpErOXwbXVPk6nAAAB","timestamp":"2026-05-07T07:54:53.237Z"}
+{"level":"info","message":"Socket disconnected: zprpErOXwbXVPk6nAAAB","timestamp":"2026-05-07T08:13:26.614Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-05-09T01:18:49.926Z"}
+{"level":"info","message":"Socket connected: 2NVFC9O9hysYzsWFAAAB","timestamp":"2026-05-09T01:19:22.875Z"}
+{"level":"info","message":"Vibe Connect API running on http://localhost:5000","timestamp":"2026-05-09T01:21:52.412Z"}
+{"level":"info","message":"Socket connected: tvGBWdxuDBNRXwglAAAB","timestamp":"2026-05-09T01:22:54.635Z"}
+{"level":"info","message":"Socket disconnected: tvGBWdxuDBNRXwglAAAB","timestamp":"2026-05-09T01:23:44.679Z"}
+{"level":"info","message":"Socket connected: rJYMDCR5N8XAagIQAAAD","timestamp":"2026-05-09T01:24:09.542Z"}
+{"level":"info","message":"Socket disconnected: rJYMDCR5N8XAagIQAAAD","timestamp":"2026-05-09T01:25:25.259Z"}
+{"level":"info","message":"Socket connected: ip_tXK8C320FIr7bAAAF","timestamp":"2026-05-09T01:25:57.668Z"}
+{"level":"info","message":"Socket connected: -InIdI_7dtNa_3uCAAAH","timestamp":"2026-05-09T01:26:37.298Z"}
+{"level":"info","message":"Socket disconnected: ip_tXK8C320FIr7bAAAF","timestamp":"2026-05-09T01:26:45.888Z"}
+{"level":"info","message":"Socket connected: jwyzRw_Qj-I1us0sAAAJ","timestamp":"2026-05-09T01:27:40.657Z"}
+{"level":"debug","message":"Socket jwyzRw_Qj-I1us0sAAAJ joined chat global-party","timestamp":"2026-05-09T01:27:40.672Z"}
+{"level":"info","message":"Socket disconnected: jwyzRw_Qj-I1us0sAAAJ","timestamp":"2026-05-09T01:27:46.375Z"}
+{"level":"info","message":"Socket connected: aHQxHeDzPmMdiaIdAAAL","timestamp":"2026-05-09T01:28:47.372Z"}
+{"level":"info","message":"Socket disconnected: aHQxHeDzPmMdiaIdAAAL","timestamp":"2026-05-09T01:28:56.222Z"}
