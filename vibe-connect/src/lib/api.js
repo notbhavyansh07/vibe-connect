@@ -1,7 +1,7 @@
 // API client that connects to the Express backend (vibe-backend)
 // All routes are centralized here so the frontend stays in sync with the backend.
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api' : '');
 
 /**
  * Build auth headers from a JWT access token.
