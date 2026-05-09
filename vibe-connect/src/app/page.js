@@ -567,7 +567,7 @@ export default function Feed() {
             </aside>
 
             {/* Main Feed */}
-            <main className="flex-1 w-full max-w-2xl border-r border-white/10">
+            <main className="flex-1 w-full max-w-2xl border-r border-white/10 pb-20 md:pb-0">
                 <header className="sticky top-0 bg-black/80 backdrop-blur-md z-40 border-b border-white/10">
                     <div className="flex items-center justify-between px-2 w-full">
                         <div className="flex flex-1">
@@ -653,31 +653,26 @@ export default function Feed() {
                                 ))}
                             </div>
 
-                            <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                                <div className="flex gap-2">
+                            <div className="flex flex-wrap items-center justify-between pt-4 border-t border-white/5 gap-2">
+                                <div className="flex gap-1 flex-wrap">
                                     <label className="p-2 hover:bg-primary/10 rounded-full text-primary cursor-pointer transition-colors group" htmlFor="post-image-upload">
                                         <input type="file" id="post-image-upload" accept="image/*" className="hidden" onChange={handleImageChange} />
-                                        <ImagePlus size={20} className="group-hover:scale-110 transition-transform" />
+                                        <ImagePlus size={18} className="group-hover:scale-110 transition-transform" />
                                     </label>
-                                    <button onClick={() => setIsARActive(!isARActive)} className={`p-2 rounded-full transition-all flex items-center gap-1.5 ${isARActive ? 'bg-primary/20 text-primary animate-pulse' : 'hover:bg-primary/10 text-primary'}`} title="AR Filter">
-                                        <Video size={20} />
+                                    <button onClick={() => setIsARActive(!isARActive)} className={`p-2 rounded-full transition-all ${isARActive ? 'bg-primary/20 text-primary animate-pulse' : 'hover:bg-primary/10 text-primary'}`} title="AR Filter">
+                                        <Video size={18} />
                                     </button>
                                     <button
                                         onClick={() => {
-                                            if (isRecording) {
-                                                handleVoiceAnalyze();
-                                            } else {
-                                                setIsRecording(true);
-                                                // Automatic stop after 3s for demo
-                                                setTimeout(() => handleVoiceAnalyze(), 3000);
-                                            }
+                                            if (isRecording) { handleVoiceAnalyze(); }
+                                            else { setIsRecording(true); setTimeout(() => handleVoiceAnalyze(), 3000); }
                                         }}
                                         disabled={isAnalyzingVoice}
-                                        className={`p-2 rounded-full transition-all flex items-center gap-1.5 ${isRecording ? 'bg-red-500/20 text-red-500 animate-pulse' : 'hover:bg-primary/10 text-primary'}`}
+                                        className={`p-2 rounded-full transition-all ${isRecording ? 'bg-red-500/20 text-red-500 animate-pulse' : 'hover:bg-primary/10 text-primary'}`}
                                     >
-                                        <Mic size={20} className={isRecording ? 'scale-110' : ''} />
+                                        <Mic size={18} className={isRecording ? 'scale-110' : ''} />
                                     </button>
-                                    <select 
+                                    <select
                                         value={selectedCircle}
                                         onChange={(e) => setSelectedCircle(e.target.value)}
                                         className="bg-transparent border-none text-[10px] font-bold text-gray-500 focus:ring-0 cursor-pointer hover:text-primary transition-colors"
@@ -687,29 +682,29 @@ export default function Feed() {
                                         <option value="Deep Web">🕳️ Deep Web</option>
                                     </select>
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="flex gap-1.5 flex-wrap justify-end">
                                     <button
                                         onClick={handleGenerateHashtags}
                                         disabled={!newPost.trim() || isGeneratingTags}
-                                        className="btn bg-white/5 border border-white/10 hover:border-primary/30 text-white px-3 py-2 rounded-full text-xs font-bold transition-all disabled:opacity-50"
+                                        className="px-2 py-1.5 rounded-full text-[10px] font-bold bg-white/5 border border-white/10 hover:border-primary/30 text-white transition-all disabled:opacity-50"
                                     >
-                                        {isGeneratingTags ? "🏷️..." : "#️⃣ AI Tags"}
+                                        {isGeneratingTags ? "🏷️..." : "#️⃣ Tags"}
                                     </button>
                                     <button
                                         id="enhance-vibe-btn"
                                         onClick={handleEnhanceVibe}
                                         disabled={!newPost.trim() || isEnhancing}
-                                        className="btn bg-white/5 border border-primary/20 hover:bg-primary/10 hover:border-primary/50 text-white px-4 py-2 rounded-full text-xs font-bold transition-all disabled:opacity-50 disabled:shadow-none flex items-center gap-1.5"
+                                        className="px-2 py-1.5 rounded-full text-[10px] font-bold bg-white/5 border border-primary/20 hover:bg-primary/10 text-white transition-all disabled:opacity-50"
                                     >
-                                        {isEnhancing ? "✨ Vibing..." : "✨ AI Enhance"}
+                                        {isEnhancing ? "✨..." : "✨ Enhance"}
                                     </button>
                                     <button
                                         id="submit-post-btn"
                                         onClick={handlePost}
                                         disabled={!newPost.trim() && !postImage}
-                                        className="btn btn-primary px-6 py-2 rounded-full text-sm font-bold shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] disabled:opacity-50 disabled:shadow-none"
+                                        className="btn btn-primary px-4 py-1.5 rounded-full text-xs font-bold disabled:opacity-50 disabled:shadow-none"
                                     >
-                                        Post Vibe
+                                        Post
                                     </button>
                                 </div>
                             </div>
@@ -718,7 +713,7 @@ export default function Feed() {
                     </div>
                 </div>
 
-                <div className="pb-20 space-y-6">
+                <div className="pb-4 space-y-6">
                     {loading ? (
                         <div className="space-y-6">
                             {[1, 2, 3].map(i => (
@@ -874,6 +869,30 @@ export default function Feed() {
                     </div>
                 </div>
             </aside>
+            {/* Mobile Bottom Navigation */}
+            <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-black/90 backdrop-blur-xl border-t border-white/10 flex items-center justify-around px-2 py-2 safe-area-bottom">
+                <button id="mob-nav-home" onClick={() => {}} className="flex flex-col items-center gap-1 p-2 text-primary">
+                    <Home size={20} />
+                    <span className="text-[9px] font-black uppercase tracking-widest">Home</span>
+                </button>
+                <button id="mob-nav-search" onClick={() => setShowSearch(true)} className="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-white transition-colors">
+                    <Search size={20} />
+                    <span className="text-[9px] font-black uppercase tracking-widest">Explore</span>
+                </button>
+                <button id="mob-nav-notifications" onClick={() => setShowNotifications(true)} className="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-white transition-colors relative">
+                    <Bell size={20} />
+                    {notifications.length > 0 && <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary animate-pulse" />}
+                    <span className="text-[9px] font-black uppercase tracking-widest">Alerts</span>
+                </button>
+                <button id="mob-nav-soulmatch" onClick={() => setShowVibeMatcher(true)} className="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-white transition-colors">
+                    <HeartHandshake size={20} />
+                    <span className="text-[9px] font-black uppercase tracking-widest">Match</span>
+                </button>
+                <button id="mob-nav-profile" onClick={() => router.push(mongoUser ? `/profile/${(mongoUser.handle || '').replace('@', '')}` : '#')} className="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-white transition-colors">
+                    <User size={20} />
+                    <span className="text-[9px] font-black uppercase tracking-widest">Profile</span>
+                </button>
+            </nav>
         </div>
     );
 }
