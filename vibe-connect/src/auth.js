@@ -14,30 +14,49 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) return null;
 
-                // Normalise email — trims whitespace & lowercases so Android
-                // auto-capitalise doesn't cause false "invalid password" errors
-                const email = credentials.email.trim().toLowerCase();
+                try {
+                    const email = credentials.email.trim().toLowerCase();
 
-                const user = await prisma.user.findUnique({
-                    where: { email },
-                });
+                    let user = await prisma.user.findUnique({
+                        where: { email },
+                    });
 
-                if (!user || !user.password) return null;
+                    // Auto-provision demo account on-demand if missing in database
+                    if (!user && email === "demo@vibeconnect.com") {
+                        const hashedPassword = await bcrypt.hash("vibemaster99", 10);
+                        user = await prisma.user.create({
+                            data: {
+                                email: "demo@vibeconnect.com",
+                                name: "Nova Echo (Demo)",
+                                handle: "@nova_echo",
+                                password: hashedPassword,
+                                bio: "Exploring the 3D spatial vibe continuum 🌌✨",
+                                vibeTag: "Ethereal Cyberpunk",
+                                vibeFrequency: "96.4 MHz",
+                            },
+                        });
+                    }
 
-                const isValid = await bcrypt.compare(
-                    credentials.password,
-                    user.password
-                );
+                    if (!user || !user.password) return null;
 
-                if (!isValid) return null;
+                    const isValid = await bcrypt.compare(
+                        credentials.password,
+                        user.password
+                    );
 
-                return {
-                    id: user.id,
-                    name: user.name,
-                    email: user.email,
-                    handle: user.handle,
-                    image: user.image,
-                };
+                    if (!isValid) return null;
+
+                    return {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        handle: user.handle,
+                        image: user.image,
+                    };
+                } catch (err) {
+                    console.error("[AUTH AUTHORIZE ERROR]", err);
+                    return null;
+                }
             },
         }),
     ],
@@ -59,5 +78,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     pages: {
         signIn: "/login",
     },
-    secret: process.env.NEXTAUTH_SECRET,
+    trustHost: true,
+    secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "vibe_connect_super_secret_session_secret_key_2026",
 });

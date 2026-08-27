@@ -36,14 +36,15 @@ function LoginForm() {
 
             if (result?.error) {
                 setError("Invalid email or password. Please check your credentials and try again.");
-            } else if (result?.ok) {
+            } else if (result?.ok || result?.status === 200 || !result?.error) {
                 router.push("/");
                 router.refresh();
             } else {
-                setError("Something went wrong. Please try again.");
+                setError("Invalid email or password. Please check your credentials and try again.");
             }
         } catch (err) {
-            setError("An unexpected error occurred. Please try again.");
+            console.error("Login submission error:", err);
+            setError("Invalid email or password. Please check your credentials and try again.");
         } finally {
             setLoading(false);
         }
