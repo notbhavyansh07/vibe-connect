@@ -15,36 +15,55 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) return null;
 
-                try {
-                    const email = credentials.email.trim().toLowerCase();
+                const email = credentials.email.trim().toLowerCase();
+                const password = credentials.password;
 
-                    let user = await prisma.user.findUnique({
+                // 1. Guaranteed Demo Account Bypass
+                if (email === "demo@vibeconnect.com" && password === "vibemaster99") {
+                    try {
+                        let demoUser = await prisma.user.findUnique({ where: { email } });
+                        if (!demoUser) {
+                            const hashedPassword = await bcrypt.hash("vibemaster99", 10);
+                            demoUser = await prisma.user.create({
+                                data: {
+                                    email: "demo@vibeconnect.com",
+                                    name: "Nova Echo (Demo)",
+                                    handle: "@nova_echo",
+                                    password: hashedPassword,
+                                    bio: "Exploring the 3D spatial vibe continuum 🌌✨",
+                                    vibeTag: "Ethereal Cyberpunk",
+                                    vibeFrequency: "96.4 MHz",
+                                },
+                            });
+                        }
+                        return {
+                            id: demoUser.id,
+                            name: demoUser.name,
+                            email: demoUser.email,
+                            handle: demoUser.handle,
+                            image: demoUser.image || null,
+                        };
+                    } catch (dbErr) {
+                        console.warn("[DEMO AUTH DB BYPASS]", dbErr?.message || dbErr);
+                        return {
+                            id: "demo-user-nova-echo",
+                            name: "Nova Echo (Demo)",
+                            email: "demo@vibeconnect.com",
+                            handle: "@nova_echo",
+                            image: null,
+                        };
+                    }
+                }
+
+                // 2. Standard User Database Authentication
+                try {
+                    const user = await prisma.user.findUnique({
                         where: { email },
                     });
 
-                    // Auto-provision demo account on-demand if missing in database
-                    if (!user && email === "demo@vibeconnect.com") {
-                        const hashedPassword = await bcrypt.hash("vibemaster99", 10);
-                        user = await prisma.user.create({
-                            data: {
-                                email: "demo@vibeconnect.com",
-                                name: "Nova Echo (Demo)",
-                                handle: "@nova_echo",
-                                password: hashedPassword,
-                                bio: "Exploring the 3D spatial vibe continuum 🌌✨",
-                                vibeTag: "Ethereal Cyberpunk",
-                                vibeFrequency: "96.4 MHz",
-                            },
-                        });
-                    }
-
                     if (!user || !user.password) return null;
 
-                    const isValid = await bcrypt.compare(
-                        credentials.password,
-                        user.password
-                    );
-
+                    const isValid = await bcrypt.compare(password, user.password);
                     if (!isValid) return null;
 
                     return {
