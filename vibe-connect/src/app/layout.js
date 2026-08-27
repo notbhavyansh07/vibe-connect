@@ -1,32 +1,15 @@
-import './globals.css';
-import { Outfit } from 'next/font/google';
-
-const outfit = Outfit({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-outfit',
-});
+import "./globals.css";
+import Providers from "../components/Providers";
 
 export const metadata = {
-  title: 'VibeConnect - Connect by Vibe, Not by Looks',
-  description: 'A vibe-based social connection platform matching you based on music, hobbies, and personality.',
-  icons: {
-    icon: '/favicon.ico',
-  },
+  title: "VibeConnect",
+  description: "Social platform based on shared vibes and AI matching",
 };
-
-export const viewport = {
-  themeColor: '#0B0B0F',
-  width: 'device-width',
-  initialScale: 1,
-};
-
-import { Providers } from '@/components/Providers';
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={outfit.variable} suppressHydrationWarning>
-      <body className="antialiased" suppressHydrationWarning>
+    <html lang="en" className="dark">
+      <body className="bg-background text-foreground antialiased selection:bg-primary/30">
         <Providers>
           {children}
         </Providers>

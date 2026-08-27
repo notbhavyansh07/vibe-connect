@@ -4,8 +4,30 @@ const Post = require('../models/Post');
 
 /**
  * Vibe matching + AI recommendation service.
- * Uses Jaccard similarity on shared vibes and activity-based scoring.
  */
+
+/**
+ * Cosine similarity between two 5D trait vectors: [music, energy, gaming, deepTalks, night]
+ * Includes divide-by-zero protection & 0–100 range input clamping.
+ */
+function cosineSimilarity5D(vecA, vecB) {
+  if (!vecA || !vecB || !Array.isArray(vecA) || !Array.isArray(vecB) || vecA.length !== 5 || vecB.length !== 5) {
+    return 0;
+  }
+  let dotProduct = 0;
+  let normA = 0;
+  let normB = 0;
+  for (let i = 0; i < 5; i++) {
+    const a = Math.max(0, Math.min(100, Number(vecA[i]) || 0));
+    const b = Math.max(0, Math.min(100, Number(vecB[i]) || 0));
+    dotProduct += a * b;
+    normA += a * a;
+    normB += b * b;
+  }
+  if (normA === 0 || normB === 0) return 0;
+  const similarity = dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+  return Math.min(1.0, Math.max(0.0, similarity));
+}
 
 /**
  * Jaccard index: |A ∩ B| / |A ∪ B|
@@ -78,7 +100,6 @@ async function computeMatch(userAId, userBId) {
  * Find top N matches for a user.
  */
 async function getTopMatches(userId, limit = 10) {
-  // Compare against users who share at least one vibe
   const user = await User.findById(userId);
   if (!user) throw new Error('User not found');
 
@@ -88,14 +109,12 @@ async function getTopMatches(userId, limit = 10) {
     isActive: true,
   }).select('_id name handle image vibes');
 
-  // Compute and cache matches in parallel
   const matchPromises = candidates.slice(0, 100).map((c) =>
     computeMatch(userId, c._id)
   );
 
   await Promise.allSettled(matchPromises);
 
-  // Return best scoring
   const matches = await VibeMatch.find({
     $or: [{ userA: userId }, { userB: userId }],
   })
@@ -113,7 +132,7 @@ async function getTopMatches(userId, limit = 10) {
 }
 
 /**
- * Recompute all matches for a user (e.g., after updating vibes).
+ * Recompute all matches for a user.
  */
 async function refreshMatches(userId) {
   const others = await User.find({ _id: { $ne: userId }, isActive: true });
@@ -123,4 +142,4 @@ async function refreshMatches(userId) {
   return { message: `Matched against ${computed} users`, count: computed };
 }
 
-module.exports = { computeMatch, getTopMatches, refreshMatches, jaccardSimilarity };
+module.exports = { computeMatch, getTopMatches, refreshMatches, jaccardSimilarity, cosineSimilarity5D };

@@ -18,7 +18,7 @@ async function register({ name, email, password, handle, vibes }) {
   }
 
   const hash = await bcrypt.hash(password, 12);
-  const user = await User.create({ name, email, password: hash, vibes });
+  const user = await User.create({ name, email, password: hash, handle, vibes });
 
   const accessToken = generateAccessToken(user._id, user.role);
   const refreshToken = generateRefreshToken(user._id);

@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 import logger from '../utils/logger.js';
 
 export interface VibeUser {
@@ -45,7 +45,7 @@ export interface VibeNotification {
 }
 
 export class VibeBackendService {
-  private client: AxiosInstance;
+  private client: any;
   private authToken: string | null = null;
   private baseUrl: string;
 

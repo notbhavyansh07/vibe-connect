@@ -23,7 +23,7 @@ export default function VibeStudioModal({ setShowVibeStudio, vibeTokens }) {
                                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity" />
                                 <Zap className="mx-auto text-cyan-400 mb-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]" size={32} fill="currentColor" />
                                 <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Global Vibe Tokens</h3>
-                                <div className="text-4xl font-black text-white">{vibeTokens.toLocaleString()} <span className="text-xs text-cyan-400">$VIBE</span></div>
+                                <div className="text-4xl font-black text-white">{vibeTokens ? vibeTokens.toLocaleString() : 0} <span className="text-xs text-cyan-400">$VIBE</span></div>
                                 <button className="mt-6 w-full py-3 bg-cyan-400 text-black text-xs font-black uppercase rounded-xl hover:bg-cyan-300 transition-all shadow-[0_10px_20px_rgba(34,211,238,0.2)]">Mining Sync</button>
                             </div>
 

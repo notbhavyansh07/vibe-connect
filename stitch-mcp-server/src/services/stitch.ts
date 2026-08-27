@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 import logger from '../utils/logger.js';
 
 export interface StitchProject {
@@ -16,7 +16,7 @@ export interface StitchScreen {
 }
 
 export class StitchService {
-  private client: AxiosInstance;
+  private client: any;
 
   constructor(apiKey: string, baseUrl: string = 'https://api.stitch.ai/v1') {
     this.client = axios.create({

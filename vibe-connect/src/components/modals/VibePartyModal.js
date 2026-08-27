@@ -15,13 +15,11 @@ export default function VibePartyModal({
         <div className="fixed inset-0 z-[150] flex items-center justify-center">
             <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" onClick={() => setShowVibeParty(false)} />
             <div className={`w-full max-w-4xl h-[80vh] ${roomVibe} rounded-[40px] border border-white/10 shadow-[0_0_100px_rgba(var(--primary-rgb),0.3)] relative z-10 overflow-hidden flex transition-all duration-1000`}>
-                {/* 3D Generative Background */}
                 <div className="absolute inset-0 opacity-40 mix-blend-overlay">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--primary)_0%,_transparent_70%)] animate-pulse" />
                     <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,_transparent_0%,_var(--secondary)_50%,_transparent_100%)] animate-[spin_10s_linear_infinite]" />
                 </div>
 
-                {/* Left Side: Party Visuals */}
                 <div className="w-1/2 p-12 flex flex-col justify-between relative z-20">
                     <div>
                         <h2 className="text-4xl font-black italic uppercase tracking-tighter text-white">The Vibe Party</h2>
@@ -43,7 +41,6 @@ export default function VibePartyModal({
                     </div>
                 </div>
 
-                {/* Right Side: Vibe Chat */}
                 <div className="w-1/2 border-l border-white/10 p-8 flex flex-col relative z-20 bg-black/40 backdrop-blur-2xl">
                      <div className="flex-1 overflow-y-auto space-y-4 pr-4 no-scrollbar">
                          {partyMessages.length === 0 ? (

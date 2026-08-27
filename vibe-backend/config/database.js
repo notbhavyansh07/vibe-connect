@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 
+// Disable buffering when DB is disconnected to prevent 10s request timeouts
+mongoose.set('bufferCommands', false);
+
 /**
  * MongoDB connection with retry logic and grace period on failure
  */
@@ -13,7 +16,7 @@ const connectDB = async () => {
   try {
     const conn = await mongoose.connect(uri, {
       maxPoolSize: 20,
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 3000,
       socketTimeoutMS: 45000,
     });
     console.log(`MongoDB connected: ${conn.connection.host}`);

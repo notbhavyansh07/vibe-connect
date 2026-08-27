@@ -1,3 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Private app and authenticated endpoints disallowed from crawling
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://vibeconnect.io/sitemap.xml

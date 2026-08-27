@@ -7,7 +7,7 @@ export default function VibeReportModal({ setShowVibeReport }) {
                 <div className="flex items-center justify-between mb-8">
                     <div>
                         <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Weekly Vibe Report</h2>
-                        <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">AI-Gnerated Summary</p>
+                        <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">AI-Generated Summary</p>
                     </div>
                     <button onClick={() => setShowVibeReport(false)} className="p-2 hover:bg-white/5 rounded-full text-gray-500">✕</button>
                 </div>

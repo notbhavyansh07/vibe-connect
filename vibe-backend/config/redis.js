@@ -2,9 +2,10 @@ const Redis = require('ioredis');
 
 /**
  * Redis client wrapper for caching and session storage.
- * Exports a singleton that reconnects automatically.
+ * Gracefully handles Redis absence by failing silently.
  */
 let client = null;
+let isRedisAvailable = false;
 
 function getRedisClient() {
   if (client) return client;
@@ -13,22 +14,33 @@ function getRedisClient() {
     host: process.env.REDIS_HOST || 'localhost',
     port: parseInt(process.env.REDIS_PORT || '6379'),
     password: process.env.REDIS_PASSWORD || undefined,
-    retryStrategy: times => Math.min(times * 50, 2000),
-    maxRetriesPerRequest: 3,
+    retryStrategy: times => {
+      if (times > 2) return null; // Stop retrying after 2 attempts
+      return 500;
+    },
+    maxRetriesPerRequest: 1,
+    enableOfflineQueue: false,
   });
 
-  client.on('connect', () => console.log('Redis connected'));
-  client.on('error', err => console.error('Redis error:', err.message));
-  client.on('close', () => console.log('Redis connection closed'));
+  client.on('connect', () => {
+    isRedisAvailable = true;
+    console.log('Redis connected');
+  });
+
+  client.on('error', err => {
+    isRedisAvailable = false;
+  });
+
+  client.on('close', () => {
+    isRedisAvailable = false;
+  });
 
   return client;
 }
 
-/**
- * Cache helper – get, set with optional TTL (seconds)
- */
 async function cacheGet(key) {
   try {
+    if (!isRedisAvailable) return null;
     const redis = getRedisClient();
     const data = await redis.get(key);
     return data ? JSON.parse(data) : null;
@@ -39,15 +51,17 @@ async function cacheGet(key) {
 
 async function cacheSet(key, data, ttl = 3600) {
   try {
+    if (!isRedisAvailable) return;
     const redis = getRedisClient();
     await redis.set(key, JSON.stringify(data), 'EX', ttl);
   } catch {
-    // Fail silently – cache is best-effort
+    // Fail silently
   }
 }
 
 async function cacheDel(pattern) {
   try {
+    if (!isRedisAvailable) return;
     const redis = getRedisClient();
     const keys = await redis.keys(pattern);
     if (keys.length) await redis.del(...keys);

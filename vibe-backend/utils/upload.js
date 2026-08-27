@@ -1,25 +1,25 @@
 const multer = require('multer');
 const path = require('path');
 
-/**
- * Custom Cloudinary upload using the Cloudinary v2 SDK.
- * multer handles the file storage; cloudinary.uploadStream uploads it.
- */
+const storage = multer.memoryStorage();
+
 function getUploader(folder = 'vibe-connect') {
-  const storage = multer.diskStorage({
-    destination: path.join(__dirname, '../uploads'),
-    filename: (_req, file, cb) => {
-      const unique = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
-      cb(null, unique);
+  return multer({
+    storage,
+    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+    fileFilter: (_req, file, cb) => {
+      const allowed = /jpeg|jpg|png|gif|webp/;
+      const extname = allowed.test(path.extname(file.originalname).toLowerCase());
+      const mimetype = allowed.test(file.mimetype);
+      if (extname && mimetype) {
+        return cb(null, true);
+      }
+      cb(new Error('Only image files are allowed'));
     },
   });
-
-  const upload = multer({
-    storage,
-    limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB
-  });
-
-  return upload;
 }
 
-module.exports = { getUploader };
+const upload = getUploader();
+
+module.exports = upload;
+module.exports.getUploader = getUploader;
