@@ -36,11 +36,8 @@ function LoginForm() {
 
             if (result?.error) {
                 setError("Invalid email or password. Please check your credentials and try again.");
-            } else if (result?.ok || result?.status === 200 || !result?.error) {
-                router.push("/");
-                router.refresh();
             } else {
-                setError("Invalid email or password. Please check your credentials and try again.");
+                window.location.href = "/";
             }
         } catch (err) {
             console.error("Login submission error:", err);
