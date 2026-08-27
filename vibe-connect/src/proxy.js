@@ -3,7 +3,10 @@ import { getToken } from "next-auth/jwt";
 
 // In Next.js 16+, 'middleware' is renamed to 'proxy'
 export async function proxy(req) {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    const token = await getToken({ 
+        req, 
+        secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "vibe_connect_super_secret_session_secret_key_2026" 
+    });
     const { pathname } = req.nextUrl;
 
     // Public routes — always allow

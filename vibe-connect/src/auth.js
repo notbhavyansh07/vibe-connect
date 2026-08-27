@@ -4,6 +4,7 @@ import { prisma } from "./lib/db";
 import bcrypt from "bcryptjs";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+    basePath: "/api/auth",
     providers: [
         Credentials({
             name: "Credentials",
